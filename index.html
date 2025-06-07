@@ -10,11 +10,15 @@
       background-size: cover;
       background-position: center;
       height: 100vh;
-      display: flex;
+      display: none;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       color: white;
+    }
+
+    #pageAccueil.active {
+      display: flex;
     }
 
     #pageAccueil .contenu {
@@ -27,7 +31,6 @@
       gap: 15px;
     }
 
-    /* Styles globaux */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -88,6 +91,11 @@
       background: linear-gradient(to right, #0046be, #e4002b);
       transition: width 0.3s;
     }
+
+    #pageResultats button {
+      display: block;
+      margin: 30px auto;
+    }
   </style>
 </head>
 <body>
@@ -126,6 +134,7 @@
       </thead>
       <tbody id="tableResultats"></tbody>
     </table>
+    <button onclick="retourAccueil()">Revenir à l’écran titre</button>
   </div>
 
   <script>
@@ -136,7 +145,6 @@
     let bonnesReponses = 0;
     let reponses = [];
 
-    // Charger les questions depuis le fichier JSON
     fetch("questions.json")
       .then(response => response.json())
       .then(data => {
@@ -169,11 +177,9 @@
       }
 
       document.getElementById("question").innerText = questions[index].texte;
-
       document.getElementById("questionNumero").innerText =
         "Question " + (index + 1) + " / " + questions.length;
-
-      const pourcentage = ((index) / questions.length) * 100;
+      const pourcentage = (index / questions.length) * 100;
       document.getElementById("progressBar").style.width = pourcentage + "%";
 
       animerParole(2000);
@@ -206,6 +212,15 @@
         html += `<tr><td>${r.question}</td><td>${r.taReponse}</td><td>${r.bonneReponse}</td></tr>`;
       });
       document.getElementById("tableResultats").innerHTML = html;
+    }
+
+    function retourAccueil() {
+      document.getElementById("pageResultats").classList.remove("active");
+      document.getElementById("pageAccueil").classList.add("active");
+      index = 0;
+      bonnesReponses = 0;
+      reponses = [];
+      document.getElementById("progressBar").style.width = "0%";
     }
 
     function animerParole(duree = 2000) {
