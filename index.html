@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Vrai ou Faux</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
+    .page {
+      display: none;
+    }
+    .active {
+      display: block;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+    }
+    #personnage {
+      margin: 20px auto;
+      text-align: center;
+    }
+    #personnage img {
+      border-radius: 20px;
+      box-shadow: 0 0 10px gray;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Page d'accueil -->
+  <div id="pageAccueil" class="page active">
+    <h1>Bienvenue sur le Quiz Vrai ou Faux</h1>
+    <p>Entre ton prénom :</p>
+    <input type="text" id="nomJoueur" placeholder="Ton prénom">
+    <br><br>
+    <button onclick="commencerJeu()">Commencer le jeu</button>
+  </div>
+
+  <!-- Page du quiz -->
+  <div id="pageQuiz" class="page">
+    <div id="personnage">
+      <img id="imgPersonnage" src="personnage_ferme.png" alt="Personnage" style="width:150px;">
+    </div>
+    <h2 id="question"></h2>
+    <button onclick="repondre(true)">Vrai</button>
+    <button onclick="repondre(false)">Faux</button>
+  </div>
+
+  <!-- Page des résultats -->
+  <div id="pageResultats" class="page">
+    <h1>Résultats</h1>
+    <p id="resumeScore"></p>
+    <table border="1" style="margin: 0 auto;">
+      <thead>
+        <tr><th>Question</th><th>Ta réponse</th><th>Bonne réponse</th></tr>
+      </thead>
+      <tbody id="tableResultats"></tbody>
+    </table>
+  </div>
+
+  <script>
+    let questions = [];
+    let questionsChargees = false;
+    let nom = "";
+    let index = 0;
+    let bonnesReponses = 0;
+    let reponses = [];
+
+    // Charger les questions depuis le fichier JSON
+    fetch("questions.json")
+      .then(response => response.json())
+      .then(data => {
+        questions = data;
+        questionsChargees = true;
+      })
+      .catch(error => {
+        alert("Erreur de chargement des questions : " + error);
+      });
+
+    function commencerJeu() {
+      nom = document.getElementById("nomJoueur").value.trim();
+      if (nom === "") {
+        alert("Merci d’entrer ton prénom !");
+        return;
+      }
+      if (!questionsChargees) {
+        alert("Les questions ne sont pas encore prêtes. Patiente un instant...");
+        return;
+      }
+      document.getElementById("pageAccueil").classList.remove("active");
+      document.getElementById("pageQuiz").classList.add("active");
+      afficherQuestion();
+    }
+
+    function afficherQuestion() {
+      if (index >= questions.length) {
+        afficherResultats();
+        return;
+      }
+      document.getElementById("question").innerText = questions[index].texte;
+      animerParole(2000);
+    }
+
+    function repondre(utilisateurDitVrai) {
+      const bonne = questions[index].reponse;
+      const estBonne = utilisateurDitVrai === bonne;
+      if (estBonne) bonnesReponses++;
+
+      reponses.push({
+        question: questions[index].texte,
+        taReponse: utilisateurDitVrai ? "Vrai" : "Faux",
+        bonneReponse: bonne ? "Vrai" : "Faux"
+      });
+
+      index++;
+      afficherQuestion();
+    }
+
+    function afficherResultats() {
+      document.getElementById("pageQuiz").classList.remove("active");
+      document.getElementById("pageResultats").classList.add("active");
+
+      document.getElementById("resumeScore").innerText =
+        nom + ", tu as eu " + bonnesReponses + " bonne(s) réponse(s) sur " + questions.length;
+
+      let html = "";
+      reponses.forEach(r => {
+        html += `<tr><td>${r.question}</td><td>${r.taReponse}</td><td>${r.bonneReponse}</td></tr>`;
+      });
+      document.getElementById("tableResultats").innerHTML = html;
+    }
+
+    function animerParole(duree = 2000) {
+      const img = document.getElementById("imgPersonnage");
+      let parle = true;
+
+      const interval = setInterval(() => {
+        img.src = parle ? "personnage_ouvert.png" : "personnage_ferme.png";
+        parle = !parle;
+      }, 300);
+
+      setTimeout(() => {
+        clearInterval(interval);
+        img.src = "personnage_ferme.png";
+      }, duree);
+    }
+  </script>
+
+</body>
+</html>

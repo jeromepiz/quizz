@@ -1,0 +1,8 @@
+[
+  { "texte": "Le feu est chaud.", "reponse": true },
+  { "texte": "Les poissons volent dans le ciel.", "reponse": false },
+  { "texte": "Il y a 7 jours dans une semaine.", "reponse": true },
+  { "texte": "L'eau gèle à 100 degrés.", "reponse": false },
+  { "texte": "Un triangle a trois côtés.", "reponse": true },
+  { "texte": "Le soleil tourne autour de la Terre.", "reponse": false }
+]
