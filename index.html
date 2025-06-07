@@ -5,8 +5,8 @@
   <title>Quiz Vrai ou Faux</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
+      font-family: Arial, sans-serif;
     }
 
     .page {
@@ -17,7 +17,6 @@
       display: block;
     }
 
-    /* Page d'accueil */
     #pageAccueil {
       background-image: url("accueil.png");
       background-size: cover;
@@ -63,32 +62,36 @@
 
     /* PAGE QUIZ */
     #pageQuiz {
-      background-color: #f3f4f6;
-      padding: 40px 20px;
+      background-color: #f2f2f2;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 30px;
     }
 
-    .quiz-container {
+    .quiz-row {
       display: flex;
       align-items: flex-start;
       justify-content: center;
-      gap: 30px;
-      max-width: 900px;
-      margin: auto;
-    }
-
-    .bubble {
-      background-color: white;
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      max-width: 600px;
-      font-size: 20px;
+      gap: 40px;
+      margin-bottom: 40px;
     }
 
     #personnage img {
       width: 150px;
-      border-radius: 20px;
+      border-radius: 15px;
       box-shadow: 0 0 10px gray;
+    }
+
+    .bubble {
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      min-width: 300px;
+      font-size: 20px;
     }
 
     .reponses {
@@ -103,7 +106,7 @@
     #questionNumero {
       text-align: center;
       font-weight: bold;
-      margin: 30px 0 10px;
+      margin-bottom: 10px;
     }
 
     #progression {
@@ -141,7 +144,7 @@
 
   <!-- Page du quiz -->
   <div id="pageQuiz" class="page">
-    <div class="quiz-container">
+    <div class="quiz-row">
       <div id="personnage">
         <img id="imgPersonnage" src="personnage_ferme.png" alt="Personnage">
       </div>
@@ -153,9 +156,12 @@
         </div>
       </div>
     </div>
-    <div id="questionNumero">Question 1 / ?</div>
-    <div id="progression">
-      <div id="progressBar"></div>
+
+    <div>
+      <div id="questionNumero">Question 1 / ?</div>
+      <div id="progression">
+        <div id="progressBar"></div>
+      </div>
     </div>
   </div>
 
