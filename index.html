@@ -17,6 +17,7 @@
       display: block;
     }
 
+    /* Page d'accueil */
     #pageAccueil {
       background-image: url("accueil.png");
       background-size: cover;
@@ -60,24 +61,54 @@
       box-shadow: 0 6px 15px rgba(0,0,0,0.3);
     }
 
-    #personnage {
-      margin: 20px auto;
-      text-align: center;
+    /* PAGE QUIZ */
+    #pageQuiz {
+      background-color: #f3f4f6;
+      padding: 40px 20px;
+    }
+
+    .quiz-container {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 30px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .bubble {
+      background-color: white;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      font-size: 20px;
     }
 
     #personnage img {
+      width: 150px;
       border-radius: 20px;
       box-shadow: 0 0 10px gray;
     }
 
+    .reponses {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .reponses button {
+      margin: 0 10px;
+    }
+
     #questionNumero {
+      text-align: center;
       font-weight: bold;
-      margin: 10px 0;
+      margin: 30px 0 10px;
     }
 
     #progression {
-      margin: 10px auto;
-      width: 80%;
+      margin: 0 auto;
+      width: 60%;
       background-color: #ddd;
       border-radius: 10px;
       overflow: hidden;
@@ -110,16 +141,22 @@
 
   <!-- Page du quiz -->
   <div id="pageQuiz" class="page">
-    <div id="personnage">
-      <img id="imgPersonnage" src="personnage_ferme.png" alt="Personnage" style="width:150px;">
+    <div class="quiz-container">
+      <div id="personnage">
+        <img id="imgPersonnage" src="personnage_ferme.png" alt="Personnage">
+      </div>
+      <div class="bubble">
+        <h2 id="question"></h2>
+        <div class="reponses">
+          <button onclick="repondre(true)">Vrai</button>
+          <button onclick="repondre(false)">Faux</button>
+        </div>
+      </div>
     </div>
     <div id="questionNumero">Question 1 / ?</div>
     <div id="progression">
       <div id="progressBar"></div>
     </div>
-    <h2 id="question"></h2>
-    <button onclick="repondre(true)">Vrai</button>
-    <button onclick="repondre(false)">Faux</button>
   </div>
 
   <!-- Page des résultats -->
@@ -146,7 +183,7 @@
     function afficherPage(id) {
       document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
       document.getElementById(id).classList.add("active");
-      window.scrollTo(0, 0); // Remonte en haut
+      window.scrollTo(0, 0);
     }
 
     fetch("questions.json")
