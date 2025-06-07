@@ -64,9 +64,13 @@
       background-color: #f2f2f2;
       min-height: 100vh;
       padding: 30px;
-      display: flex;
+      display: none; /* CORRECTION ICI */
       flex-direction: column;
       justify-content: space-between;
+    }
+
+    #pageQuiz.active {
+      display: flex;
     }
 
     .quiz-row {
@@ -126,6 +130,11 @@
     #pageResultats {
       text-align: center;
       padding: 40px;
+      display: none;
+    }
+
+    #pageResultats.active {
+      display: block;
     }
 
     #pageResultats table {
