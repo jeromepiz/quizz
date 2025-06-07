@@ -298,6 +298,19 @@
         img.src = "personnage_ferme.png";
       }, duree);
     }
+    function envoyerScore(prenom, score, total) {
+  fetch('https://script.google.com/macros/s/AKfycbyehrm8ticrKkMeTejysKQ8lcijmrvsWkKXewgEuMa2pX3DBmjTBmUslLbE2Y75Tb9m/exec', {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ prenom: prenom, score: score, total: total })
+  })
+  .then(() => console.log("Score enregistré"))
+  .catch(error => console.error("Erreur lors de l'enregistrement du score :", error));
+}
+
   </script>
 </body>
 </html>
