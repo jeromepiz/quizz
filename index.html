@@ -64,14 +64,9 @@
       background-color: #f2f2f2;
       min-height: 100vh;
       padding: 30px;
-      display: none;
-    }
-
-    #pageQuiz.active {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 20px;
+      justify-content: space-between;
     }
 
     .quiz-row {
@@ -79,6 +74,7 @@
       align-items: flex-start;
       justify-content: center;
       gap: 40px;
+      margin-bottom: 40px;
     }
 
     #personnage img {
@@ -106,18 +102,14 @@
       margin: 0 10px;
     }
 
-    .progression-zone {
-      text-align: center;
-      margin-top: 20px;
-    }
-
     #questionNumero {
+      text-align: center;
       font-weight: bold;
       margin-bottom: 10px;
     }
 
     #progression {
-      margin: 0 auto;
+      margin: 0 auto 40px auto;
       width: 60%;
       background-color: #ddd;
       border-radius: 10px;
@@ -133,12 +125,15 @@
 
     #pageResultats {
       text-align: center;
-      padding: 40px 20px;
+      padding: 40px;
+    }
+
+    #pageResultats table {
+      margin: 0 auto;
     }
 
     #pageResultats button {
-      display: block;
-      margin: 30px auto;
+      margin-top: 30px;
     }
   </style>
 </head>
@@ -169,7 +164,7 @@
       </div>
     </div>
 
-    <div class="progression-zone">
+    <div>
       <div id="questionNumero">Question 1 / ?</div>
       <div id="progression">
         <div id="progressBar"></div>
@@ -177,23 +172,18 @@
     </div>
   </div>
 
- <!-- Page des résultats -->
-<div id="pageResultats" class="page">
-  <h1>Résultats</h1>
-
-  <div style="display: flex; flex-direction: column; align-items: center;">
-    <p id="resumeScore" style="font-size: 18px; margin-bottom: 20px;"></p>
-
+  <!-- Page des résultats -->
+  <div id="pageResultats" class="page">
+    <h1>Résultats</h1>
+    <p id="resumeScore"></p>
     <table border="1">
       <thead>
         <tr><th>Question</th><th>Ta réponse</th><th>Bonne réponse</th></tr>
       </thead>
       <tbody id="tableResultats"></tbody>
     </table>
+    <button onclick="retourAccueil()">Revenir à l’écran titre</button>
   </div>
-
-  <button onclick="retourAccueil()">Revenir à l’écran titre</button>
-</div>
 
   <script>
     let questions = [];
@@ -236,6 +226,7 @@
     function afficherQuestion() {
       if (index >= questions.length) {
         afficherResultats();
+        envoyerScore(nom, bonnesReponses, questions.length);
         return;
       }
 
@@ -298,19 +289,17 @@
         img.src = "personnage_ferme.png";
       }, duree);
     }
-    function envoyerScore(prenom, score, total) {
-  fetch('https://script.google.com/macros/s/AKfycbyehrm8ticrKkMeTejysKQ8lcijmrvsWkKXewgEuMa2pX3DBmjTBmUslLbE2Y75Tb9m/exec', {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ prenom: prenom, score: score, total: total })
-  })
-  .then(() => console.log("Score enregistré"))
-  .catch(error => console.error("Erreur lors de l'enregistrement du score :", error));
-}
 
+    function envoyerScore(nom, score, total) {
+      const date = new Date().toLocaleString("fr-FR");
+      fetch("TON_URL_SCRIPT_APPS_SCRIPT", {
+        method: "POST",
+        body: JSON.stringify({ nom, score, total, date }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then(res => console.log("Score envoyé")).catch(err => console.error("Erreur envoi :", err));
+    }
   </script>
 </body>
 </html>
