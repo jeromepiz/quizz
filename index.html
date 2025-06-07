@@ -177,20 +177,23 @@
     </div>
   </div>
 
-  <!-- Page des résultats -->
-  <div id="pageResultats" class="page">
-    <h1>Résultats</h1>
-    <p id="resumeScore"></p>
-    <div style="display: flex; justify-content: center;">
-      <table border="1">
-        <thead>
-          <tr><th>Question</th><th>Ta réponse</th><th>Bonne réponse</th></tr>
-        </thead>
-        <tbody id="tableResultats"></tbody>
-      </table>
-    </div>
-    <button onclick="retourAccueil()">Revenir à l’écran titre</button>
+ <!-- Page des résultats -->
+<div id="pageResultats" class="page">
+  <h1>Résultats</h1>
+
+  <div style="display: flex; flex-direction: column; align-items: center;">
+    <p id="resumeScore" style="font-size: 18px; margin-bottom: 20px;"></p>
+
+    <table border="1">
+      <thead>
+        <tr><th>Question</th><th>Ta réponse</th><th>Bonne réponse</th></tr>
+      </thead>
+      <tbody id="tableResultats"></tbody>
+    </table>
   </div>
+
+  <button onclick="retourAccueil()">Revenir à l’écran titre</button>
+</div>
 
   <script>
     let questions = [];
