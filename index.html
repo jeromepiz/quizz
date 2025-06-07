@@ -60,20 +60,25 @@
       box-shadow: 0 6px 15px rgba(0,0,0,0.3);
     }
 
-    /* PAGE QUIZ - initialement sans display */
+    /* PAGE QUIZ */
     #pageQuiz {
       background-color: #f2f2f2;
       min-height: 100vh;
       padding: 30px;
     }
 
+    #pageQuiz.active {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+    }
 
     .quiz-row {
       display: flex;
       align-items: flex-start;
       justify-content: center;
       gap: 40px;
-      margin-bottom: 40px;
     }
 
     #personnage img {
@@ -109,6 +114,7 @@
 
     #progression {
       margin: 0 auto;
+      margin-top: 20px;
       width: 60%;
       background-color: #ddd;
       border-radius: 10px;
@@ -126,12 +132,6 @@
       display: block;
       margin: 30px auto;
     }
-    #pageQuiz.active {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
   </style>
 </head>
 <body>
