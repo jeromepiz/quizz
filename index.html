@@ -4,33 +4,6 @@
   <meta charset="UTF-8">
   <title>Quiz Vrai ou Faux</title>
   <style>
-    /* Page d'accueil */
-    #pageAccueil {
-      background-image: url("accueil.png");
-      background-size: cover;
-      background-position: center;
-      height: 100vh;
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: white;
-    }
-
-    #pageAccueil.active {
-      display: flex;
-    }
-
-    #pageAccueil .contenu {
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 30px;
-      border-radius: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-    }
-
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -42,6 +15,28 @@
 
     .active {
       display: block;
+    }
+
+    #pageAccueil {
+      background-image: url("accueil.png");
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+
+    #pageAccueil .contenu {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
     }
 
     button {
@@ -145,6 +140,14 @@
     let bonnesReponses = 0;
     let reponses = [];
 
+    // Fonction pour n'afficher qu'une seule page
+    function afficherPage(id) {
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+      window.scrollTo(0, 0); // remonter en haut de la page
+    }
+
+    // Charger les questions
     fetch("questions.json")
       .then(response => response.json())
       .then(data => {
@@ -165,8 +168,7 @@
         alert("Les questions ne sont pas encore prêtes. Patiente un instant...");
         return;
       }
-      document.getElementById("pageAccueil").classList.remove("active");
-      document.getElementById("pageQuiz").classList.add("active");
+      afficherPage("pageQuiz");
       afficherQuestion();
     }
 
@@ -201,8 +203,7 @@
     }
 
     function afficherResultats() {
-      document.getElementById("pageQuiz").classList.remove("active");
-      document.getElementById("pageResultats").classList.add("active");
+      afficherPage("pageResultats");
 
       document.getElementById("resumeScore").innerText =
         nom + ", tu as eu " + bonnesReponses + " bonne(s) réponse(s) sur " + questions.length;
@@ -215,8 +216,7 @@
     }
 
     function retourAccueil() {
-      document.getElementById("pageResultats").classList.remove("active");
-      document.getElementById("pageAccueil").classList.add("active");
+      afficherPage("pageAccueil");
       index = 0;
       bonnesReponses = 0;
       reponses = [];
@@ -238,6 +238,5 @@
       }, duree);
     }
   </script>
-
 </body>
 </html>
