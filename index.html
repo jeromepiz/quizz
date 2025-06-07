@@ -4,29 +4,89 @@
   <meta charset="UTF-8">
   <title>Quiz Vrai ou Faux</title>
   <style>
+    /* Page d'accueil */
+    #pageAccueil {
+      background-image: url("accueil.png");
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+
+    #pageAccueil .contenu {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    /* Styles globaux */
     body {
       font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 50px;
+      margin: 0;
     }
+
     .page {
       display: none;
     }
+
     .active {
       display: block;
     }
+
     button {
-      padding: 10px 20px;
-      margin: 10px;
-      font-size: 16px;
+      padding: 12px 24px;
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      background: linear-gradient(to right, #0046be, #e4002b);
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    }
+
     #personnage {
       margin: 20px auto;
       text-align: center;
     }
+
     #personnage img {
       border-radius: 20px;
       box-shadow: 0 0 10px gray;
+    }
+
+    #questionNumero {
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    #progression {
+      margin: 10px auto;
+      width: 80%;
+      background-color: #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    #progressBar {
+      height: 20px;
+      width: 0%;
+      background: linear-gradient(to right, #0046be, #e4002b);
+      transition: width 0.3s;
     }
   </style>
 </head>
@@ -34,17 +94,22 @@
 
   <!-- Page d'accueil -->
   <div id="pageAccueil" class="page active">
-    <h1>Bienvenue sur le Quiz Vrai ou Faux</h1>
-    <p>Entre ton prénom :</p>
-    <input type="text" id="nomJoueur" placeholder="Ton prénom">
-    <br><br>
-    <button onclick="commencerJeu()">Commencer le jeu</button>
+    <div class="contenu">
+      <h1>Bienvenue sur le Quiz Vrai ou Faux</h1>
+      <p>Entre ton prénom :</p>
+      <input type="text" id="nomJoueur" placeholder="Ton prénom">
+      <button onclick="commencerJeu()">Commencer le jeu</button>
+    </div>
   </div>
 
   <!-- Page du quiz -->
   <div id="pageQuiz" class="page">
     <div id="personnage">
       <img id="imgPersonnage" src="personnage_ferme.png" alt="Personnage" style="width:150px;">
+    </div>
+    <div id="questionNumero">Question 1 / ?</div>
+    <div id="progression">
+      <div id="progressBar"></div>
     </div>
     <h2 id="question"></h2>
     <button onclick="repondre(true)">Vrai</button>
@@ -102,7 +167,15 @@
         afficherResultats();
         return;
       }
+
       document.getElementById("question").innerText = questions[index].texte;
+
+      document.getElementById("questionNumero").innerText =
+        "Question " + (index + 1) + " / " + questions.length;
+
+      const pourcentage = ((index) / questions.length) * 100;
+      document.getElementById("progressBar").style.width = pourcentage + "%";
+
       animerParole(2000);
     }
 
