@@ -22,11 +22,14 @@
       background-size: cover;
       background-position: center;
       height: 100vh;
+      color: white;
+    }
+
+    #pageAccueil.active {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      color: white;
     }
 
     #pageAccueil .contenu {
@@ -140,14 +143,12 @@
     let bonnesReponses = 0;
     let reponses = [];
 
-    // Fonction pour n'afficher qu'une seule page
     function afficherPage(id) {
       document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
       document.getElementById(id).classList.add("active");
-      window.scrollTo(0, 0); // remonter en haut de la page
+      window.scrollTo(0, 0); // Remonte en haut
     }
 
-    // Charger les questions
     fetch("questions.json")
       .then(response => response.json())
       .then(data => {
