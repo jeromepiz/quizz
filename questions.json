@@ -1,8 +1,13 @@
 [
-  { "texte": "Le feu est chaud.", "reponse": true },
-  { "texte": "Les poissons volent dans le ciel.", "reponse": false },
-  { "texte": "Il y a 7 jours dans une semaine.", "reponse": true },
-  { "texte": "L'eau gèle à 100 degrés.", "reponse": false },
-  { "texte": "Un triangle a trois côtés.", "reponse": true },
-  { "texte": "Le soleil tourne autour de la Terre.", "reponse": false }
-]
+  { "texte": "Rester debout immobile longtemps à la caisse, c'est normal, il n'y a pas de raison de faire de micro-pauses d'étirement tant qu’il y a des clients.", "reponse": false },
+  { "texte": "Si un client commence à hausser le ton, je peux continuer la discussion pour défendre ma position, tant que je reste poli", "reponse": false },
+  { "texte": "En cas de suspicion de faux billet, je dois faire semblant de vérifier pour ne pas froisser le client, puis le passer discrètement.", "reponse": false },
+  { "texte": "Un cutter ou un antivol ne doit jamais être manipulé en caisse sans équipement adapté (gants anti-coupure, matériel prévu), même si ça va 'plus vite' à main nue.", "reponse": false },
+  { "texte": "Si un client s’énerve et dit : 'Je veux le responsable tout de suite', je dois immédiatement quitter mon poste pour aller en chercher un.", "reponse": false },
+  { "texte": "Si je vois un câble ou un tapis mal fixé près de ma caisse, je peux le laisser pour plus tard, tant qu’il n’a pas encore fait tomber quelqu’un.", "reponse": false }
+  { "texte": "En cas d’alarme incendie en pleine file d’attente, je peux finir le passage des clients rapides avant d’évacuer pour ne pas créer de tension.", "reponse": false }
+  { "texte": "Un client arrive à l’accueil avec un produit surgelé totalement décongelé. S’il insiste, je peux quand même le reprendre, ce n’est pas grave.", "reponse": false }
+  { "texte": "À la caisse, je peux scanner les articles en étirant juste un peu le dos, même si le client ne les pose pas correctement, ça fait gagner du temps.", "reponse": false }
+  { "texte": "Ma sécurité passe avant tout : si une situation devient trop tendue au contact client, j’ai le droit de me retirer et d’appeler du renfort, même si le client s’énerve encore plus.", "reponse": true }
+ ]
+
